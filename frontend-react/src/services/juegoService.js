@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Vite exposes variables prefixed with VITE_ via import.meta.env
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1/games';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const juegoService = {
   // Obtener todos los juegos con paginación
