@@ -1,0 +1,27 @@
+// Estilos globales para app.component
+nav {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+
+  &:hover {
+    color: #0d6efd !important;
+    cursor: pointer;
+  }
+}
+
+main {
+  min-height: calc(100vh - 200px);
+}
+
+footer {
+  border-top: 1px solid #495057;
+  margin-top: auto;
+
+  p {
+    font-size: 0.95rem;
+  }
+}

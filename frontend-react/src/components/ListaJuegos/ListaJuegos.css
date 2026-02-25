@@ -1,0 +1,25 @@
+/* estilos eliminados: se utiliza sólo Bootstrap por defecto */
+}
+
+/* Spinner */
+.spinner-border {
+  margin: 2rem auto;
+}
+
+/* Utilidades */
+.text-center {
+  text-align: center;
+}
+
+.text-end {
+  text-align: right;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+

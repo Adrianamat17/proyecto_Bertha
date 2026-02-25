@@ -1,0 +1,29 @@
+# Angular
+frontend-angular/.angular/
+frontend-angular/node_modules/
+frontend-angular/dist/
+**/.angular/
+**/node_modules/
+**/dist/
+
+# Archivos grandes
+*.pack
+*.log
+*.tmp
+*.cache
+*.suo
+*.user
+
+# Visual Studio
+.vs/
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+
+# Archivos compilados
+*.dll
+*.exe
+*.pdb

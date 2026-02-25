@@ -1,0 +1,17 @@
+<nav class="navbar navbar-dark bg-dark" sticky-top>
+  <div class="container-fluid">
+    <button class="navbar-brand" (click)="irAlInicio()" style="border: none; background: none; cursor: pointer;">
+      <span class="fs-4">🎮 GameVault</span>
+    </button>
+    <span class="navbar-text text-light">Gestor de Videojuegos</span>
+  </div>
+</nav>
+
+<main class="py-4">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="bg-dark text-light text-center py-4 mt-5">
+  <p class="mb-1">&copy; 2026 GameVault - Fase 2 Frontend Angular</p>
+  <p class="mb-0">Conectando con API Backend en puerto 3000</p>
+</footer>

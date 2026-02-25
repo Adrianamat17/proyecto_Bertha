@@ -1,0 +1,51 @@
+// Estilos personalizados mínimos para lista-juegos
+.table {
+  thead {
+    background-color: #343a40 !important;
+    th {
+      vertical-align: middle;
+      font-weight: 600;
+    }
+  }
+
+  tbody {
+    tr {
+      &:hover {
+        background-color: #f8f9fa;
+      }
+
+      td {
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.card {
+  border: 0;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.progress {
+  background-color: #e9ecef;
+  border-radius: 0.25rem;
+
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: white;
+  }
+}
+
+.badge {
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+}
+
+h1 {
+  color: #343a40;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}

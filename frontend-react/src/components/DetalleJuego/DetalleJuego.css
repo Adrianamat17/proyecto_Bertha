@@ -1,0 +1,9 @@
+/* estilos eliminados: revertido al aspecto Bootstrap original */
+    flex-direction: column;
+  }
+
+  .btn {
+    flex: none;
+    width: 100%;
+  }
+}
