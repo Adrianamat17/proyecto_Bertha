@@ -7,159 +7,188 @@
         </div>
         <div class="card-body">
           <!-- Alertas -->
-          <div *ngIf="exitoMensaje" class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ exitoMensaje }}
-          </div>
+          @if (exitoMensaje) {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ exitoMensaje }}
+            </div>
+          }
 
-          <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ error }}
-            <button type="button" class="btn-close" (click)="error = ''"></button>
-          </div>
+          @if (error) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ error }}
+              <button type="button" class="btn-close" (click)="error = ''"></button>
+            </div>
+          }
 
           <!-- Loader -->
-          <div *ngIf="cargando" class="text-center my-4">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Cargando...</span>
+          @if (cargando) {
+            <div class="text-center my-4">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+              </div>
             </div>
-          </div>
+          }
 
           <!-- Formulario -->
-          <form [formGroup]="formulario" (ngSubmit)="guardar()" *ngIf="!cargando" class="form">
-            <!-- Título -->
-            <div class="mb-3">
-              <label for="titulo" class="form-label">Título del Juego *</label>
-              <input 
-                type="text" 
-                class="form-control" 
-                id="titulo"
-                formControlName="titulo"
-                [class.is-invalid]="titulo?.invalid && titulo?.touched"
-                placeholder="Ej: The Legend of Zelda"
-              />
-              <div class="invalid-feedback" *ngIf="titulo?.invalid && titulo?.touched">
-                <div *ngIf="titulo?.errors?.['required']">El título es obligatorio</div>
-                <div *ngIf="titulo?.errors?.['minlength']">Mínimo 3 caracteres</div>
-              </div>
-            </div>
-
-            <!-- Descripción -->
-            <div class="mb-3">
-              <label for="descripcion" class="form-label">Descripción *</label>
-              <textarea 
-                class="form-control" 
-                id="descripcion"
-                formControlName="descripcion"
-                rows="4"
-                [class.is-invalid]="descripcion?.invalid && descripcion?.touched"
-                placeholder="Describe el juego..."
-              ></textarea>
-              <div class="invalid-feedback" *ngIf="descripcion?.invalid && descripcion?.touched">
-                <div *ngIf="descripcion?.errors?.['required']">La descripción es obligatoria</div>
-                <div *ngIf="descripcion?.errors?.['minlength']">Mínimo 10 caracteres</div>
-              </div>
-            </div>
-
-            <!-- Fecha de lanzamiento -->
-            <div class="mb-3">
-              <label for="fechaLanzamiento" class="form-label">Fecha de Lanzamiento *</label>
-              <input 
-                type="date" 
-                class="form-control" 
-                id="fechaLanzamiento"
-                formControlName="fechaLanzamiento"
-                [class.is-invalid]="fechaLanzamiento?.invalid && fechaLanzamiento?.touched"
-              />
-              <div class="invalid-feedback" *ngIf="fechaLanzamiento?.invalid && fechaLanzamiento?.touched">
-                La fecha es obligatoria
-              </div>
-            </div>
-
-            <!-- Horas Jugadas -->
-            <div class="mb-3">
-              <label for="horasJugadas" class="form-label">Horas Jugadas *</label>
-              <input 
-                type="number" 
-                class="form-control" 
-                id="horasJugadas"
-                formControlName="horasJugadas"
-                min="0"
-                max="100000"
-                [class.is-invalid]="horasJugadas?.invalid && horasJugadas?.touched"
-              />
-              <div class="invalid-feedback" *ngIf="horasJugadas?.invalid && horasJugadas?.touched">
-                <div *ngIf="horasJugadas?.errors?.['required']">Las horas jugadas son obligatorias</div>
-                <div *ngIf="horasJugadas?.errors?.['min']">No pueden ser negativas</div>
-                <div *ngIf="horasJugadas?.errors?.['max']">Máximo 100000 horas</div>
-              </div>
-            </div>
-
-            <!-- Porcentaje de completado -->
-            <div class="mb-3">
-              <label for="porcentaje" class="form-label">Porcentaje de Completado: {{ porcentajeCompletado?.value }}%</label>
-              <input 
-                type="range" 
-                class="form-range" 
-                id="porcentaje"
-                formControlName="porcentajeCompletado"
-                min="0"
-                max="100"
-                (change)="actualizarPorcentaje($any($event.target).value)"
-              />
-              <div class="progress mt-2">
-                <div 
-                  class="progress-bar bg-success" 
-                  role="progressbar"
-                  [style.width.%]="porcentajeCompletado?.value"
-                ></div>
-              </div>
-            </div>
-
-            <!-- Completado -->
-            <div class="mb-3 form-check">
-              <input 
-                type="checkbox" 
-                class="form-check-input" 
-                id="completado"
-                formControlName="completado"
-              />
-              <label class="form-check-label" for="completado">
-                ✅ Juego completado
-              </label>
-            </div>
-
-            <!-- Imagen URL -->
-            <div class="mb-3">
-              <label for="imagen" class="form-label">URL de la Imagen</label>
-              <div class="d-flex align-items-center gap-3">
-                <input 
-                  type="url" 
-                  class="form-control" 
-                  id="imagen"
-                  formControlName="imagen"
-                  placeholder="https://..."
-                />
-                <div style="width:80px;height:80px;border:1px solid #ddd;border-radius:6px;overflow:hidden;background:#f8f9fa;">
-                  <a *ngIf="previewUrl" [href]="previewUrl" target="_blank" rel="noreferrer">
-                    <img [src]="previewUrl" alt="preview" style="width:100%;height:100%;object-fit:cover;" (error)="previewError=true" (load)="previewError=false" />
-                  </a>
-                  <div *ngIf="!previewUrl" class="text-center text-muted" style="font-size:12px;padding-top:26px;">Previsual.</div>
-                  <div *ngIf="previewError" class="text-center text-muted" style="font-size:10px;padding:6px;">URL inválida</div>
+          @if (!cargando) {
+            <form [formGroup]="formulario" (ngSubmit)="guardar()" class="form">
+              <!-- Título -->
+              <div class="mb-3">
+                <label for="titulo" class="form-label">Título del Juego *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="titulo"
+                  formControlName="titulo"
+                  [class.is-invalid]="titulo?.invalid && titulo?.touched"
+                  placeholder="Ej: The Legend of Zelda"
+                  />
+                  @if (titulo?.invalid && titulo?.touched) {
+                    <div class="invalid-feedback">
+                      @if (titulo?.errors?.['required']) {
+                        <div>El título es obligatorio</div>
+                      }
+                      @if (titulo?.errors?.['minlength']) {
+                        <div>Mínimo 3 caracteres</div>
+                      }
+                    </div>
+                  }
+                </div>
+                <!-- Descripción -->
+                <div class="mb-3">
+                  <label for="descripcion" class="form-label">Descripción *</label>
+                  <textarea
+                    class="form-control"
+                    id="descripcion"
+                    formControlName="descripcion"
+                    rows="4"
+                    [class.is-invalid]="descripcion?.invalid && descripcion?.touched"
+                    placeholder="Describe el juego..."
+                  ></textarea>
+                  @if (descripcion?.invalid && descripcion?.touched) {
+                    <div class="invalid-feedback">
+                      @if (descripcion?.errors?.['required']) {
+                        <div>La descripción es obligatoria</div>
+                      }
+                      @if (descripcion?.errors?.['minlength']) {
+                        <div>Mínimo 10 caracteres</div>
+                      }
+                    </div>
+                  }
+                </div>
+                <!-- Fecha de lanzamiento -->
+                <div class="mb-3">
+                  <label for="fechaLanzamiento" class="form-label">Fecha de Lanzamiento *</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fechaLanzamiento"
+                    formControlName="fechaLanzamiento"
+                    [class.is-invalid]="fechaLanzamiento?.invalid && fechaLanzamiento?.touched"
+                    />
+                    @if (fechaLanzamiento?.invalid && fechaLanzamiento?.touched) {
+                      <div class="invalid-feedback">
+                        La fecha es obligatoria
+                      </div>
+                    }
+                  </div>
+                  <!-- Horas Jugadas -->
+                  <div class="mb-3">
+                    <label for="horasJugadas" class="form-label">Horas Jugadas *</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="horasJugadas"
+                      formControlName="horasJugadas"
+                      min="0"
+                      max="100000"
+                      [class.is-invalid]="horasJugadas?.invalid && horasJugadas?.touched"
+                      />
+                      @if (horasJugadas?.invalid && horasJugadas?.touched) {
+                        <div class="invalid-feedback">
+                          @if (horasJugadas?.errors?.['required']) {
+                            <div>Las horas jugadas son obligatorias</div>
+                          }
+                          @if (horasJugadas?.errors?.['min']) {
+                            <div>No pueden ser negativas</div>
+                          }
+                          @if (horasJugadas?.errors?.['max']) {
+                            <div>Máximo 100000 horas</div>
+                          }
+                        </div>
+                      }
+                    </div>
+                    <!-- Porcentaje de completado -->
+                    <div class="mb-3">
+                      <label for="porcentaje" class="form-label">Porcentaje de Completado: {{ porcentajeCompletado?.value }}%</label>
+                      <input
+                        type="range"
+                        class="form-range"
+                        id="porcentaje"
+                        formControlName="porcentajeCompletado"
+                        min="0"
+                        max="100"
+                        (change)="actualizarPorcentaje($any($event.target).value)"
+                        />
+                        <div class="progress mt-2">
+                          <div
+                            class="progress-bar bg-success"
+                            role="progressbar"
+                            [style.width.%]="porcentajeCompletado?.value"
+                          ></div>
+                        </div>
+                      </div>
+                      <!-- Completado -->
+                      <div class="mb-3 form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="completado"
+                          formControlName="completado"
+                          />
+                          <label class="form-check-label" for="completado">
+                            ✅ Juego completado
+                          </label>
+                        </div>
+                        <!-- Imagen URL -->
+                        <div class="mb-3">
+                          <label for="imagen" class="form-label">URL de la Imagen</label>
+                          <div class="d-flex align-items-center gap-3">
+                            <input
+                              type="url"
+                              class="form-control"
+                              id="imagen"
+                              formControlName="imagen"
+                              placeholder="https://..."
+                              />
+                              <div style="width:80px;height:80px;border:1px solid #ddd;border-radius:6px;overflow:hidden;background:#f8f9fa;">
+                                @if (previewUrl) {
+                                  <a [href]="previewUrl" target="_blank" rel="noreferrer">
+                                    <img [src]="previewUrl" alt="preview" style="width:100%;height:100%;object-fit:cover;" (error)="previewError=true" (load)="previewError=false" />
+                                  </a>
+                                }
+                                @if (!previewUrl) {
+                                  <div class="text-center text-muted" style="font-size:12px;padding-top:26px;">Previsual.</div>
+                                }
+                                @if (previewError) {
+                                  <div class="text-center text-muted" style="font-size:10px;padding:6px;">URL inválida</div>
+                                }
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Botones -->
+                          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-secondary" (click)="cancelar()">
+                              ❌ Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-primary" [disabled]="formulario.invalid || cargando">
+                              💾 {{ editando ? 'Actualizar' : 'Crear' }}
+                            </button>
+                          </div>
+                        </form>
+                      }
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <!-- Botones -->
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button type="button" class="btn btn-secondary" (click)="cancelar()">
-                ❌ Cancelar
-              </button>
-              <button type="submit" class="btn btn-primary" [disabled]="formulario.invalid || cargando">
-                💾 {{ editando ? 'Actualizar' : 'Crear' }}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

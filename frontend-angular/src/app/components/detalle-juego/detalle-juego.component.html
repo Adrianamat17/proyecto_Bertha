@@ -2,105 +2,114 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <!-- Loader -->
-      <div *ngIf="cargando" class="text-center my-5">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Cargando...</span>
+      @if (cargando) {
+        <div class="text-center my-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+          <p class="mt-2">Cargando detalle del juego...</p>
         </div>
-        <p class="mt-2">Cargando detalle del juego...</p>
-      </div>
+      }
 
       <!-- Error -->
-      <div *ngIf="error && !cargando" class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ error }}
-      </div>
+      @if (error && !cargando) {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ error }}
+        </div>
+      }
 
       <!-- Detalle del juego -->
-      <div *ngIf="juego && !cargando" class="card">
-      <!-- Imagen -->
-      <div *ngIf="juego.imagen && juego.imagen.trim() !== ''" class="card-img-top position-relative" style="height: 300px; overflow: hidden; background: #f0f0f0;">
-        <img 
-          [src]="juego.imagen" 
-          alt="{{ juego.titulo }}" 
-          class="w-100 h-100"
-          style="object-fit: cover; object-position: center;"
-          (error)="mostrarImagenPorDefecto = true"
-        />
-      </div>
-      <div *ngIf="!juego.imagen || juego.imagen.trim() === '' || mostrarImagenPorDefecto" class="card-img-top bg-secondary" style="height: 300px; display: flex; align-items: center; justify-content: center;">
-        <span class="text-white display-4">🎮</span>
-      </div>
-
-        <div class="card-body">
-          <!-- Título -->
-          <h1 class="card-title mb-2">{{ juego.titulo }}</h1>
-
-          <!-- Badges de estado -->
-          <div class="mb-3">
-            <span *ngIf="juego.completado" class="badge bg-success me-2">✅ Completado</span>
-            <span *ngIf="!juego.completado" class="badge bg-warning text-dark me-2">⏳ En progreso</span>
-            <span class="badge bg-info">📅 {{ formatearFecha(juego.fechaLanzamiento) }}</span>
-          </div>
-
-          <!-- Descripción -->
-          <p class="card-text text-muted mb-4">{{ juego.descripcion }}</p>
-
-          <!-- Información detallada -->
-          <div class="row mb-4">
-            <div class="col-md-6">
-              <h5 class="mb-3">📊 Información</h5>
-              <div class="info-item mb-3">
-                <strong>Horas jugadas:</strong>
-                <p class="mb-0">{{ juego.horasJugadas }} horas</p>
+      @if (juego && !cargando) {
+        <div class="card">
+          <!-- Imagen -->
+          @if (juego.imagen && juego.imagen.trim() !== '') {
+            <div class="card-img-top position-relative" style="height: 300px; overflow: hidden; background: #f0f0f0;">
+              <img
+                [src]="juego.imagen"
+                alt="{{ juego.titulo }}"
+                class="w-100 h-100"
+                style="object-fit: cover; object-position: center;"
+                (error)="mostrarImagenPorDefecto = true"
+                />
               </div>
-              <div class="info-item mb-3">
-                <strong>Progreso:</strong>
-                <p class="mb-0">{{ juego.porcentajeCompletado }}%</p>
+            }
+            @if (!juego.imagen || juego.imagen.trim() === '' || mostrarImagenPorDefecto) {
+              <div class="card-img-top bg-secondary" style="height: 300px; display: flex; align-items: center; justify-content: center;">
+                <span class="text-white display-4">🎮</span>
+              </div>
+            }
+            <div class="card-body">
+              <!-- Título -->
+              <h1 class="card-title mb-2">{{ juego.titulo }}</h1>
+              <!-- Badges de estado -->
+              <div class="mb-3">
+                @if (juego.completado) {
+                  <span class="badge bg-success me-2">✅ Completado</span>
+                }
+                @if (!juego.completado) {
+                  <span class="badge bg-warning text-dark me-2">⏳ En progreso</span>
+                }
+                <span class="badge bg-info">📅 {{ formatearFecha(juego.fechaLanzamiento) }}</span>
+              </div>
+              <!-- Descripción -->
+              <p class="card-text text-muted mb-4">{{ juego.descripcion }}</p>
+              <!-- Información detallada -->
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <h5 class="mb-3">📊 Información</h5>
+                  <div class="info-item mb-3">
+                    <strong>Horas jugadas:</strong>
+                    <p class="mb-0">{{ juego.horasJugadas }} horas</p>
+                  </div>
+                  <div class="info-item mb-3">
+                    <strong>Progreso:</strong>
+                    <p class="mb-0">{{ juego.porcentajeCompletado }}%</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="mb-3">📈 Estadísticas</h5>
+                  <div class="info-item mb-3">
+                    <strong>Creado:</strong>
+                    <p class="mb-0">{{ formatearFecha(juego.createdAt) }}</p>
+                  </div>
+                  <div class="info-item mb-3">
+                    <strong>Última actualización:</strong>
+                    <p class="mb-0">{{ formatearFecha(juego.updatedAt) }}</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Barra de progreso -->
+              <div class="mb-4">
+                <h5 class="mb-2">Barra de Progreso</h5>
+                <div class="progress" style="height: 30px;">
+                  <div
+                    class="progress-bar bg-success"
+                    role="progressbar"
+                    [style.width.%]="juego.porcentajeCompletado"
+                    >
+                    <strong>{{ juego.porcentajeCompletado }}%</strong>
+                  </div>
+                </div>
+              </div>
+              <!-- Botones -->
+              <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                <button type="button" class="btn btn-secondary" (click)="volver()">
+                  ← Volver a la lista
+                </button>
+                <button type="button" class="btn btn-primary" (click)="editarJuego()">
+                  ✏️ Editar juego
+                </button>
               </div>
             </div>
-
-            <div class="col-md-6">
-              <h5 class="mb-3">📈 Estadísticas</h5>
-              <div class="info-item mb-3">
-                <strong>Creado:</strong>
-                <p class="mb-0">{{ formatearFecha(juego.createdAt) }}</p>
-              </div>
-              <div class="info-item mb-3">
-                <strong>Última actualización:</strong>
-                <p class="mb-0">{{ formatearFecha(juego.updatedAt) }}</p>
-              </div>
-            </div>
           </div>
+        }
 
-          <!-- Barra de progreso -->
-          <div class="mb-4">
-            <h5 class="mb-2">Barra de Progreso</h5>
-            <div class="progress" style="height: 30px;">
-              <div 
-                class="progress-bar bg-success" 
-                role="progressbar"
-                [style.width.%]="juego.porcentajeCompletado"
-              >
-                <strong>{{ juego.porcentajeCompletado }}%</strong>
-              </div>
-            </div>
+        <!-- Sin datos -->
+        @if (!juego && !cargando && !error) {
+          <div class="alert alert-info">
+            No se encontró el juego solicitado.
           </div>
-
-          <!-- Botones -->
-          <div class="d-grid gap-2 d-md-flex justify-content-md-between">
-            <button type="button" class="btn btn-secondary" (click)="volver()">
-              ← Volver a la lista
-            </button>
-            <button type="button" class="btn btn-primary" (click)="editarJuego()">
-              ✏️ Editar juego
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sin datos -->
-      <div *ngIf="!juego && !cargando && !error" class="alert alert-info">
-        No se encontró el juego solicitado.
+        }
       </div>
     </div>
   </div>
-</div>
