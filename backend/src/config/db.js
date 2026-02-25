@@ -17,18 +17,18 @@ const connectDB = async () => {
   // Si no hay promesa de conexión en curso, la creamos
   if (!cached.promise) {
     const opts = {
-      bufferCommands: true,
-      bufferTimeoutMS: 30000, // 30 segundos para operaciones en buffer
-      serverSelectionTimeoutMS: 30000, // Timeout para encontrar servidor
-      socketTimeoutMS: 45000, // Timeout de socket
-      connectTimeoutMS: 30000, // Timeout de conexión inicial
-      maxPoolSize: 10,
-      minPoolSize: 2,
-      maxIdleTimeMS: 60000,
-      retryWrites: true,
-      retryReads: true,
-      heartbeatFrequencyMS: 10000,
-    };
+  bufferCommands: true,
+  bufferTimeoutMS: 30000,      
+  serverSelectionTimeoutMS: 30000,
+  socketTimeoutMS: 45000,
+  connectTimeoutMS: 30000,
+  maxPoolSize: 10,
+  minPoolSize: 2,
+  maxIdleTimeMS: 60000,
+  retryWrites: true,
+  retryReads: true,
+  heartbeatFrequencyMS: 10000,
+};
 
     console.log('🔄 Conectando a MongoDB Atlas...');
     console.log('📌 URI:', process.env.MONGODB_URI ? '✓ Definida' : '✗ No definida');
