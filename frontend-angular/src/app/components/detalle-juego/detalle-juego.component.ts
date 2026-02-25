@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JuegoService } from '../../services/juego.service';
 
 @Component({
-  selector: 'app-detalle-juego',
-  templateUrl: './detalle-juego.component.html',
-  styleUrls: ['./detalle-juego.component.scss']
+    selector: 'app-detalle-juego',
+    templateUrl: './detalle-juego.component.html',
+    styleUrls: ['./detalle-juego.component.scss'],
+    standalone: false
 })
 export class DetalleJuegoComponent implements OnInit {
   juego: any = null;

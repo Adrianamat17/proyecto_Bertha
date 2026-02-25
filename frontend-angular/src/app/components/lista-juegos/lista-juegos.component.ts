@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { JuegoService } from '../../services/juego.service';
 
 @Component({
-  selector: 'app-lista-juegos',
-  templateUrl: './lista-juegos.component.html',
-  styleUrls: ['./lista-juegos.component.scss']
+    selector: 'app-lista-juegos',
+    templateUrl: './lista-juegos.component.html',
+    styleUrls: ['./lista-juegos.component.scss'],
+    standalone: false
 })
 export class ListaJuegosComponent implements OnInit {
   juegos: any[] = [];

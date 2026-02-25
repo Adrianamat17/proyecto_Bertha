@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JuegoService } from '../../services/juego.service';
 
 @Component({
-  selector: 'app-formulario-juego',
-  templateUrl: './formulario-juego.component.html',
-  styleUrls: ['./formulario-juego.component.scss']
+    selector: 'app-formulario-juego',
+    templateUrl: './formulario-juego.component.html',
+    styleUrls: ['./formulario-juego.component.scss'],
+    standalone: false
 })
 export class FormularioJuegoComponent implements OnInit {
   formulario!: FormGroup;
