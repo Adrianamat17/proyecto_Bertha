@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,21 +9,14 @@ import { ListaJuegosComponent } from './components/lista-juegos/lista-juegos.com
 import { FormularioJuegoComponent } from './components/formulario-juego/formulario-juego.component';
 import { DetalleJuegoComponent } from './components/detalle-juego/detalle-juego.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    ListaJuegosComponent,
-    FormularioJuegoComponent,
-    DetalleJuegoComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        ListaJuegosComponent,
+        FormularioJuegoComponent,
+        DetalleJuegoComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
