@@ -1,25 +1,17 @@
-/* estilos eliminados: se utiliza sólo Bootstrap por defecto */
+/* Minimal custom styles for ListaJuegos */
+
+/* Spinner centering */
+.lista-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
 }
 
-/* Spinner */
-.spinner-border {
-  margin: 2rem auto;
-}
-
-/* Utilidades */
-.text-center {
-  text-align: center;
-}
-
-.text-end {
-  text-align: right;
-}
-
-.mb-4 {
-  margin-bottom: 1.5rem;
-}
-
-.mt-2 {
-  margin-top: 0.5rem;
+/* Small spacing helpers specific to this component */
+.lista-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
 }
 

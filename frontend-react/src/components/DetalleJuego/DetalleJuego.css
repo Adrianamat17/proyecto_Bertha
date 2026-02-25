@@ -1,9 +1,26 @@
-/* estilos eliminados: revertido al aspecto Bootstrap original */
-    flex-direction: column;
-  }
+/* Minimal styles for DetalleJuego to improve responsiveness */
 
-  .btn {
-    flex: none;
-    width: 100%;
+/* Ensure image stays contained and looks good */
+.card-img-top img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* On small screens make action buttons full width and stacked */
+@media (max-width: 767px) {
+  .card-body .d-md-flex {
+    flex-direction: column !important;
   }
+  .card-body .d-grid .btn,
+  .card-body .d-md-flex .btn {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* small visual tweaks */
+.info-item p {
+  margin: 0;
 }
